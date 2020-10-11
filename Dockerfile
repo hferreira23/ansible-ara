@@ -5,7 +5,7 @@ FROM base as builder
 RUN apk update && \
     apk upgrade --available && \
     sync && \
-    apk add postgresql-dev mariadb-dev bash build-base yaml-dev && \
+    apk add postgresql-dev mariadb-dev build-base yaml-dev && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
 RUN python3 -m pip install --prefix="/build" --no-cache-dir --no-binary PyYAML PyYAML
@@ -13,6 +13,15 @@ RUN python3 -m pip install --prefix="/build" --no-cache-dir --no-binary PyYAML P
 RUN python3 -m pip install --prefix="/build" mysql psycopg2 gunicorn ara[server]
 
 FROM base
+
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk update && \
+    apk upgrade --available && \
+    sync && \
+    apk add bash && \
+    rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
 ENV ARA_BASE_DIR=/opt/ara
 
