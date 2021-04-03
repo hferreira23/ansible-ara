@@ -2,10 +2,7 @@ FROM python:alpine as base
 
 FROM base as builder
 
-RUN apk update && \
-    apk upgrade --available && \
-    sync && \
-    apk add postgresql-dev mariadb-dev build-base yaml-dev && \
+RUN apk add postgresql-dev mariadb-dev build-base yaml-dev && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
 RUN python3 -m pip install --prefix="/build" --no-cache-dir --no-binary PyYAML PyYAML
@@ -19,9 +16,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
     echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     apk update && \
     apk upgrade --available && \
-    sync && \
     apk add bash && \
-    rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
+    rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/* && \
+    sync
 
 ENV ARA_BASE_DIR=/opt/ara
 
