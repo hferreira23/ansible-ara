@@ -3,8 +3,8 @@ FROM python:slim-bullseye as base
 FROM base as builder
 
 RUN apt update && \
-    apt install python3-dev default-libmysqlclient-dev build-essential -y && \
-    python3 -m pip install --prefix="/build" PyYAML mysql psycopg2-binary gunicorn ara[server]
+    apt install python3-dev libpq-dev default-libmysqlclient-dev build-essential -y && \
+    python3 -m pip install --prefix="/build" PyYAML mysql psycopg2 gunicorn ara[server]
 
 FROM base
 
