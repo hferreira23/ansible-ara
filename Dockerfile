@@ -1,4 +1,4 @@
-FROM python:slim-bullseye as base
+FROM python:3.11-slim as base
 
 FROM base as builder
 
