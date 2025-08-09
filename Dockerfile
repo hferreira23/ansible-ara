@@ -1,6 +1,6 @@
-FROM python:3.13-slim as base
+FROM python:3.13-slim AS base
 
-FROM base as builder
+FROM base AS builder
 
 RUN apt update && \
     apt install python3-dev libpq-dev default-libmysqlclient-dev build-essential pkg-config -y
